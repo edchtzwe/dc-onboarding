@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  onboarding-app:
+    build:
+      context: .
+      dockerfile: /opt/workspace/dc-onboarding/dev/Dockerfile
+    volumes:
+      - .:/var/www/html:rw  # Mount the entire project to /var/www/html
+      - /opt/workspace/dc-onboarding/dev/vhost.conf:/etc/apache2/sites-available/000-default.conf:ro  # Mount the virtual host config
+    ports:
+      - "80:80"
+    environment:
+      - APP_ENV=dev
+    networks:
+      - symfony_net
+
+networks:
+  symfony_net:
+    driver: bridge
