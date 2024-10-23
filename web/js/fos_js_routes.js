@@ -1,0 +1,1 @@
+fos.Router.setData({"base_url":"","routes":{"fetch_contacts":{"tokens":[["text","\/fetch-contacts"]],"defaults":[],"requirements":[],"hosttokens":[],"methods":["GET"],"schemes":[]}},"prefix":"","host":"localhost","port":"","scheme":"http","locale":""});

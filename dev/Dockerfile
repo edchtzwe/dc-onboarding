@@ -11,20 +11,25 @@ RUN apt-get update && apt-get install -y \
     php-zip \
     php-intl \
     php-pdo \
+    php-sqlite3 \
     php-mysql \
     curl \
     gnupg \
+    vim \
     && apt-get clean
 
 # Enable necessary Apache module
 RUN a2enmod rewrite
 
 # Install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 
 # Install Node.js and npm
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
     && apt-get install -y nodejs
+
+# Add ll alias for ls -lah
+RUN echo "alias ll='ls -lah'" >> /etc/bash.bashrc
 
 # Set working directory
 WORKDIR /var/www/html
