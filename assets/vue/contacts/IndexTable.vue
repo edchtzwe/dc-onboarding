@@ -1,6 +1,9 @@
 <template>
     <div class="card">
-      <div class="card-header">Contacts</div>
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <span>Contacts</span>
+        <button class="btn btn-success" @click="createContact">Create New Contact</button>
+      </div>
       <div class="card-body p-0">
         <table class="table table-striped mb-0">
           <thead>
@@ -33,12 +36,25 @@
   import { useContactsStore } from './stores/contacts';
   import axios from 'axios';
   
+  // Define emits directly using Vue's compiler macro
+  const emit = defineEmits(['editContact', 'createContact']);
+  
+  // Get the contacts store
   const contactsStore = useContactsStore();
   
+  // Edit contact function
   const editContact = (contact) => {
-    console.log('Edit contact:', contact);
+    // Emit the event to notify parent about the edit
+    emit('editContact', contact);
   };
   
+  // Create contact function
+  const createContact = () => {
+    // Emit the event to notify parent to switch to ContactForm for creating a new contact
+    emit('createContact');
+  };
+  
+  // Delete contact function
   const deleteContact = async (contact) => {
     try {
       await axios.delete(`/api/contacts/${contact.id}`);
